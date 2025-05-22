@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result - Milk Quality Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Milk Quality Predictor</h1>
+        </header>
+        <main>
+            <div class="result-card">
+                <h2>🥛 Prediction Result</h2>
+                <div class="result-content">
+                    <p>The predicted milk quality grade is:</p>
+                    <div class="grade-display">
+                        {% if grade == '0' %}
+                            <div class="high">🟢 <strong>High Quality</strong> – Safe and fresh to consume.</div>
+                        {% elif grade == '2' %}
+                            <div class="medium">🟡 <strong>Medium Quality</strong> – Acceptable but may need caution.</div>
+                        {% elif grade == '1' %}
+                            <div class="low">🔴 <strong>Low Quality</strong> – Not suitable for consumption.</div>
+                        {% else %}
+                            <div class="unknown">⚠️ <strong>Unknown Grade</strong></div>
+                        {% endif %}
+                    </div>
+                </div>
+                <a href="{{ url_for('home') }}" class="btn">🔄 Make Another Prediction</a>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

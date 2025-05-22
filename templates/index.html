@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milk Quality Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Milk Quality Predictor</h1>
+        </header>
+        <main>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <div class="input-card">
+                <h2>Enter Milk Parameters</h2>
+                <form action="{{ url_for('predict') }}" method="post">
+
+                    <div class="form-group">
+                        <label for="pH">pH Level (Acidity/Alkalinity):</label>
+                        <input type="number" id="pH" name="pH" step="0.1" required placeholder="e.g., 6.7" min="3.0" max="10.0"
+                               title="Normal milk pH is around 6.7. Acceptable range: 6.0 - 8.0">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Temprature">Temperature (in °C):</label>
+                        <input type="number" id="Temprature" name="Temprature" required placeholder="e.g., 40" min="35" max="90"
+                               title="Milk temperature during storage or testing. Range: 35°C - 45°C">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Taste">Taste:</label>
+                        <select id="Taste" name="Taste" required title="Taste of the milk sample">
+                            <option value="">-- Select Taste --</option>
+                            <option value="1">Good (No sourness)</option>
+                            <option value="0">Bad (Sour or unpleasant)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Odor">Odor:</label>
+                        <select id="Odor" name="Odor" required title="Smell of the milk">
+                            <option value="">-- Select Odor --</option>
+                            <option value="1">Pleasant (Fresh smell)</option>
+                            <option value="0">Unpleasant (Spoiled or off smell)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Fat">Fat Content:</label>
+                        <select id="Fat" name="Fat" required title="Presence of fat in the milk">
+                            <option value="">-- Select Fat Level --</option>
+                            <option value="1">Sufficient (Normal creaminess)</option>
+                            <option value="0">Low (Thin or watery)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Turbidity">Turbidity:</label>
+                        <select id="Turbidity" name="Turbidity" required title="Clarity of milk (cloudiness)">
+                            <option value="">-- Select Turbidity --</option>
+                            <option value="1">Cloudy (Normal)</option>
+                            <option value="0">Clear (Could indicate dilution)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Colour">Colour (approx. 240–255):</label>
+                        <input type="number" id="Colour" name="Colour" required placeholder="e.g., 250"
+                               title="Indicates natural whiteness. Normal values range from 240 to 255.">
+                    </div>
+
+                    <button type="submit" class="btn">Predict Milk Quality</button>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
